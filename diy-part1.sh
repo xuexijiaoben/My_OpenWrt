@@ -14,9 +14,17 @@
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # Add a feed source
-# echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-# echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
+echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
+echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
+
 # echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
+# sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
+# sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+
+
 
 # rm -rf package/luci-app-ikoolproxy
 # rm -rf package/luci-app-ikoolproxy2
