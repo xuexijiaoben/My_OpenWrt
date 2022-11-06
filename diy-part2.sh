@@ -11,10 +11,10 @@
 #
 
 # 1.修改默认ip
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.3/g' package/base-files/files/bin/config_generate
 
 # 2.修改主机名
-sed -i 's/OpenWrt/K2P/g' package/base-files/files/bin/config_generate
+sed -i 's/OpenWrt/N1/g' package/base-files/files/bin/config_generate
 
 # 4.修改版本号
 # sed -i "s/OpenWrt /0012h build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
@@ -25,5 +25,5 @@ sed -i 's/OpenWrt/K2P/g' package/base-files/files/bin/config_generate
 # 6.设置ttyd免登录
 # sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd
 
-# 7.修正连接数（by ベ七秒鱼ベ）
+# 7.修正连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
