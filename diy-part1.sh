@@ -27,7 +27,7 @@ svn co https://github.com/kiddin9/openwrt-bypass/trunk/luci-app-bypass package/l
 git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
 
 # 添加额外软件包
-svn co https://github.com/sbwml/luci-app-alist/trunk/luci-app-alist  package/luci-app-alist
+git clone --depth 1  https://github.com/sbwml/luci-app-alist.git  package/luci-app-alist
 svn co https://github.com/kenzok8/openwrt-packages/trunk/adguardhome package/adguardhome
 svn co https://github.com/kenzok8/openwrt-packages/trunk/filebrowser package/filebrowser
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
