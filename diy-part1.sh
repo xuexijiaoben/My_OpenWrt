@@ -26,8 +26,11 @@ git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxmi
 svn co https://github.com/kiddin9/openwrt-bypass/trunk/luci-app-bypass package/luci-app-bypass
 git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
 
+rm -rf feeds/packages/lang/golang
+svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
+
 # 添加额外软件包
-git clone --depth 1  https://github.com/sbwml/luci-app-alist.git  package/luci-app-alist
+git clone --depth 1 https://github.com/sbwml/luci-app-alist package/alist
 svn co https://github.com/kenzok8/openwrt-packages/trunk/adguardhome package/adguardhome
 svn co https://github.com/kenzok8/openwrt-packages/trunk/filebrowser package/filebrowser
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
