@@ -23,11 +23,11 @@ echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.co
 # 科学上网插件
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
-svn co https://github.com/kiddin9/openwrt-bypass/trunk/luci-app-bypass package/luci-app-bypass
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
 git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
 
-rm -rf feeds/packages/lang/golang
-svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
+# rm -rf feeds/packages/lang/golang
+# svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
 
 # 添加额外软件包
 git clone --depth 1 https://github.com/sbwml/luci-app-alist package/alist
