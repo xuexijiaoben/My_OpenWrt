@@ -20,7 +20,7 @@ sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.
 
 # Add a feed source
 # echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
-# echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
+echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 # echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
 # echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
