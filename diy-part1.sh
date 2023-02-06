@@ -14,9 +14,9 @@
 # sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
 # 汇总常用插件
-sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
+# sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
-# sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 
 # Add a feed source
 # echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
@@ -53,9 +53,9 @@ echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cd
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/UnblockNeteaseMusic package/UnblockNeteaseMusic
 # git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy2.git package/luci-app-ikoolproxy
 
-# rm -rf feeds/luci/themes/luci-theme-argon
-git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
-git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/themes/luci-app-argon-config
+rm -rf feeds/luci/themes/luci-theme-argon
+# git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
+# git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/themes/luci-app-argon-config
 # echo '### Argon Theme Config ###'
 
 ./scripts/feeds update -a
