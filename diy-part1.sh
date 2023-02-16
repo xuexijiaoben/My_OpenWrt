@@ -21,6 +21,7 @@ sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf
 # Add a feed source
 # echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
+echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 # echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
@@ -35,7 +36,6 @@ echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.co
 # svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
 
 # 添加额外软件包
-svn co https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest/trunk/applications/luci-app-cloudflarespeedtest
 # git clone --depth 1 https://github.com/sbwml/luci-app-alist package/alist
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/filebrowser package/filebrowser
