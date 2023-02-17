@@ -61,6 +61,6 @@ echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.defaul
 # echo '### Argon Theme Config ###'
 
 ./scripts/feeds update -a
-rm -rf /feeds/kenzo/alist
-rm -rf /feeds/kenzo/luci-app-alist
+rm -rf feeds/kenzo/alist
+rm -rf feeds/kenzo/luci-app-alist
 ./scripts/feeds install -a
