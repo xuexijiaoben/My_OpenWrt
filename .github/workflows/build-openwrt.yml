@@ -194,7 +194,7 @@ jobs:
         token: ${{ secrets.RELEASES_TOKEN }}
         body: |
           - 适当精简
-	  - 默认IP：192.168.2.3 默认密码：password
+          - 默认IP：192.168.2.3 默认密码：password
           - 当前使用版本:【[➦主源码](https://github.com/coolsnowwolf/lede)】
           ${{ env.useVersionInfo }}
         artifacts: ${{ env.FIRMWARE }}/*
