@@ -25,7 +25,7 @@ echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudfl
 # echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 # echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.default
+# echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.default
 
 # 科学上网插件
 # git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
@@ -61,6 +61,4 @@ echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.defaul
 # echo '### Argon Theme Config ###'
 
 ./scripts/feeds update -a
-rm -rf feeds/kenzo/alist
-rm -rf feeds/kenzo/luci-app-alist
 ./scripts/feeds install -a
