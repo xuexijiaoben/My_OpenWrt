@@ -4,6 +4,8 @@
 
 ./scripts/diffconfig.sh > seed.config
 
+## [`Flippy 的 Openwrt 打包源码`](https://github.com/unifreq/openwrt_packit)
+
 <br />
 </details>
 
