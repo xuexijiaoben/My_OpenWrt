@@ -1,6 +1,6 @@
 # OpenWrt 制作及使用方法
 
-查看英文说明 | [View English description](README.md)
+来自于 | [](https://github.com/ophub/amlogic-s9xxx-openwrt)
 
 使用 GitHub Actions 云编译 OpenWrt 的方法，以及本说明文档中的很多内容，来自 P3TERX, Flippy 等众多技术创新者和资源分享者, 因为众人的奉献，让我们在 Amlogic S9xxx 盒子中使用 OpenWrt 变的如此简单。
 
