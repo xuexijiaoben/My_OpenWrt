@@ -27,3 +27,6 @@ sed -i 's/OpenWrt/N1/g' package/base-files/files/bin/config_generate
 
 # 7.修正连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
+
+# Add autocore support for armvirt
+sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
