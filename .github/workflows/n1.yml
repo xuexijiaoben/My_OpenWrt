@@ -29,7 +29,7 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
+  UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
@@ -207,6 +207,10 @@ jobs:
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
+        body: |
+          - 此为精简自用上游包，不可直接刷机
+          - 默认IP：192.168.2.3 默认密码：password
+          - 当前使用版本:【[➦主源码](https://github.com/coolsnowwolf/lede)】
         files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs
