@@ -4,16 +4,16 @@
 
 ./scripts/diffconfig.sh > seed.config
 
-## [`Flippy 的 Openwrt 打包源码`](https://github.com/unifreq/openwrt_packit)
 
 <br />
 </details>
-
 
 ---
 <details>
 <summary>🆘Github Actions 打包脚本使用说明</summary>
 <br>
+
+## [`Flippy 的 Openwrt 打包源码`](https://github.com/unifreq/openwrt_packit)
 
 支持一键打包目前已经支持的全部 OpenWrt 固件，如全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S，电犀牛R68S，恒领H88K/H68k，瑞莎5B/E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等。
 
