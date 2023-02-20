@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build OpenWrt
+name: N1
 
 on:
   repository_dispatch:
@@ -29,7 +29,7 @@ env:
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: true
+  UPLOAD_FIRMWARE: false
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
@@ -63,7 +63,6 @@ jobs:
         echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
         echo "硬盘详情："
         df -Th
-
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -82,7 +81,6 @@ jobs:
         sudo chown $USER:$GROUPS /workdir
         echo "status=success" >> ${GITHUB_OUTPUT}
         df -Th
-
     - name: Clone source code
       working-directory: /workdir
       run: |
@@ -108,7 +106,6 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -122,7 +119,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -138,7 +134,6 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
     - name: Compile the firmware
       id: compile
       run: |
@@ -149,14 +144,13 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
-
     - name: Clean up server space
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
         cd openwrt/
         rm -rf $(ls . | grep -v "^bin$" | xargs) 2>/dev/null
         df -hT ${PWD}
-
+    
     - name: Upload bin directory
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
@@ -166,54 +160,44 @@ jobs:
 
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.status == 'success' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd $GITHUB_WORKSPACE/openwrt/bin/packages
-        tar -zcvf Packages.tar.gz ./*
-        cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
-        cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+        cd openwrt/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> ${GITHUB_OUTPUT}
-
+    
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
       if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
-
-    - name: Create release
-      id: release
-      uses: ncipollo/release-action@v1
+    
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@v1
+      if: steps.organize.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: R${{ env.DATE }} for ${{ env.PRODUCT_NAME }}
-        allowUpdates: true
         tag: ${{ env.FILE_NAME }}
-        commit: main
-        token: ${{ secrets.RELEASES_TOKEN }}
         body: |
-          - 此为精简自用底包
+          - 此为精简自用上游包，不可直接刷机
           - 默认IP：192.168.2.3 默认密码：password
           - 当前使用版本:【[➦主源码](https://github.com/coolsnowwolf/lede)】
-          ${{ env.useVersionInfo }}
-        artifacts: ${{ env.FIRMWARE }}/*
+        files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2.0.3
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 3
+        retain_days: 7
         keep_minimum_runs: 3
 
     - name: Delete Older Releases
       uses: dev-drprasad/delete-older-releases@v0.2.1
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        repo:
         keep_latest: 3
-        delete_tag_pattern:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
