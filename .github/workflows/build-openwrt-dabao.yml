@@ -161,9 +161,9 @@ jobs:
       id: organize
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-        #cd $GITHUB_WORKSPACE/openwrt/bin/packages
-        #tar -zcvf Packages.tar.gz ./*
-        #cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+    #    cd $GITHUB_WORKSPACE/openwrt/bin/packages
+    #    tar -zcvf Packages.tar.gz ./*
+    #    cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
         cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
@@ -182,7 +182,7 @@ jobs:
     #    ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
     #    echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
     #    echo "url=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> ${GITHUB_OUTPUT}
-   # - name: Upload firmware to WeTransfer
+    #- name: Upload firmware to WeTransfer
     #  id: wetransfer
     #  if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
     #  run: |
@@ -200,18 +200,18 @@ jobs:
         [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "status=success" >> ${GITHUB_OUTPUT}
     #- name: Upload firmware to release
-     # uses: softprops/action-gh-release@v1
-      #if: steps.tag.outputs.status == 'success' && !cancelled()
-      #env:
-       # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     # with:
-      #  tag_name: ${{ steps.tag.outputs.release_tag }}
-       # body_path: release.txt
-        #body: |
-         # - 此为精简自用上游包，不可直接刷机
-          #- 默认IP：192.168.2.3 默认密码：password
-          #- 当前使用版本:【[➦主源码](https://github.com/coolsnowwolf/lede)】
-        #files: ${{ env.FIRMWARE }}/*
+    #  uses: softprops/action-gh-release@v1
+    #  if: steps.tag.outputs.status == 'success' && !cancelled()
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #  with:
+    #    tag_name: ${{ steps.tag.outputs.release_tag }}
+    #    body_path: release.txt
+    #    body: |
+    #      - 此为精简自用上游包，不可直接刷机
+    #      - 默认IP：192.168.2.3 默认密码：password
+    #      - 当前使用版本:【[➦主源码](https://github.com/coolsnowwolf/lede)】
+    #    files: ${{ env.FIRMWARE }}/*
     
     - name: Package Armvirt as OpenWrt
       uses: unifreq/openwrt_packit@master
