@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build Openwrt DaBao
+name: N1 DaBao
 
 on:
   repository_dispatch:
