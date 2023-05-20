@@ -214,8 +214,8 @@ jobs:
     #    files: ${{ env.FIRMWARE }}/*
     
     - name: Package OpenWrt Firmware
-      uses: unifreq/openwrt_packit@master
-      # uses: ophub/flippy-openwrt-actions@main
+      # uses: unifreq/openwrt_packit@master
+      uses: ophub/flippy-openwrt-actions@main
       env:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/openwrt-armvirt-64-generic-rootfs.tar.gz
         KERNEL_REPO_URL: breakings/OpenWrt
