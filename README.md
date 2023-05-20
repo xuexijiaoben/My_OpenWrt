@@ -5,7 +5,8 @@
 ./scripts/diffconfig.sh > seed.config
 https://github.com/Netflixxp/shangyou
 
-## [`ophub 的 Openwrt 打包源码`](https://github.com/ophub/flippy-openwrt-actions）
+## [`ophub 的 Openwrt 打包源码`](https://github.com/ophub/flippy-openwrt-actions)
+
 
 <br />
 </details>
