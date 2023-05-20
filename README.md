@@ -3,6 +3,7 @@
 仓库根目录目前有两个 DIY 脚本：diy-part1.sh 和 diy-part2.sh，它们分别在更新与安装 feeds 的前后执行，你可以把对源码修改的指令写到脚本中，比如修改默认 IP、主机名、主题、添加 / 删除软件包等操作
 
 ./scripts/diffconfig.sh > seed.config
+
 https://github.com/Netflixxp/shangyou
 
 ## [`ophub 的 Openwrt 打包源码`](https://github.com/ophub/flippy-openwrt-actions)
