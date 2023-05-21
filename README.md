@@ -6,6 +6,16 @@
 
 https://github.com/Netflixxp/shangyou
 
+# N1和HK1在线升级方法
+* cd /mnt/mmcblk2p4
+* wget 升级脚本为`openwrt-update-amlogic` [点这里跳转](https://github.com/Netflixxp/N1HK1dabao/releases)
+* wget .gz后缀名的固件链接,鼠标右击后缀.gz文件获取链接地址 [点这里跳转](https://github.com/Netflixxp/N1HK1dabao/releases)
+* gzip -d 上一步下载的固件全名
+* 上述可以下载下来解压缩手动上传至/mnt/mmcblk2p4
+* chmod + x openwrt-update-amlogic
+* `./openwrt-update-amlogic` 之后有提示，输入`y`为保留配置升级，选`n`相当于重装。升级完成后系统会自动重启，稍安勿躁。
+
+
 ## [`ophub 的 Openwrt 打包源码`](https://github.com/ophub/flippy-openwrt-actions)
 
 
