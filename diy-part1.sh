@@ -24,7 +24,7 @@ echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudfl
 
 # 科学上网插件
 # git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
-echo 'src-git ssr-plus https://github.com/fw876/helloworld' >>feeds.conf.default
+echo 'src-git ssrplus https://github.com/fw876/helloworld' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 echo 'src-git luci-app-passwall2 https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2' >>feeds.conf.default
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
