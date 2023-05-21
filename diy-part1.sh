@@ -19,7 +19,6 @@
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 
 # Add a feed source
-
 echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
 echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
 
@@ -33,22 +32,16 @@ svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/lu
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 
-# https://github.com/gngpp/luci-theme-design
-# echo 'src-git neobird https://github.com/thinktip/luci-theme-neobird' >>feeds.conf.default
-
 # echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky' >>feeds.conf.default
-# echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 # echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
-# echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.default
 
 # 添加额外软件包
-# git clone --depth 1 https://github.com/sbwml/luci-app-alist package/alist
+# echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.default
+# echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/adguardhome package/adguardhome
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/filebrowser package/filebrowser
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-filebrowser package/luci-app-filebrowser
-
-
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-smartdns package/luci-app-smartdns
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-store package/luci-app-store
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
@@ -60,6 +53,9 @@ git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxmi
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/UnblockNeteaseMusic package/UnblockNeteaseMusic
 # git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 
+# 主题
+# https://github.com/gngpp/luci-theme-design
+# echo 'src-git neobird https://github.com/thinktip/luci-theme-neobird' >>feeds.conf.default
 # rm -rf feeds/luci/themes/luci-theme-argon
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
 # git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/themes/luci-app-argon-config
