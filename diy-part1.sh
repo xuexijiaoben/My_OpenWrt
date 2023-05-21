@@ -19,12 +19,17 @@
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 
 # Add a feed source
-# echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
+
 echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
 echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
-# echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-# echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
+echo 'src-git ssr-plus https://github.com/fw876/helloworld' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+echo 'src-git luci-app-passwall2 https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2' >>feeds.conf.default
+
+# echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky' >>feeds.conf.default
+
+# echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
+# echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
 # echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.default
 
 # 科学上网插件
@@ -53,7 +58,7 @@ echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.co
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/taskd package/taskd
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/v2ray-geodata package/v2ray-geodata
 # svn co https://github.com/kenzok8/openwrt-packages/trunk/UnblockNeteaseMusic package/UnblockNeteaseMusic
-# git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy2.git package/luci-app-ikoolproxy
+# git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 
 # rm -rf feeds/luci/themes/luci-theme-argon
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
