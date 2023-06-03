@@ -17,6 +17,7 @@
 # sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+# sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages ' feeds.conf.default
 
 # Add a feed source
 echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
