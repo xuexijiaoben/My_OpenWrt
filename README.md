@@ -12,7 +12,7 @@ https://github.com/Netflixxp/shangyou
 * wget .gz后缀名的固件链接,鼠标右击后缀.gz文件获取链接地址 [点这里跳转](https://github.com/Netflixxp/N1HK1dabao/releases)
 * gzip -d 上一步下载的固件全名
 * 上述可以下载下来解压缩手动上传至/mnt/mmcblk2p4
-* chmod + x openwrt-update-amlogic
+* chmod +x openwrt-update-amlogic
 * `./openwrt-update-amlogic` 之后有提示，输入`y`为保留配置升级，选`n`相当于重装。升级完成后系统会自动重启，稍安勿躁。
 
 
