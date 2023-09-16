@@ -32,9 +32,13 @@ svn co https://github.com/linkease/nas-packages/trunk/network/services/quickstar
 # 科学上网插件
 # git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
 echo 'src-git ssrplus https://github.com/fw876/helloworld' >>feeds.conf.default
-echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
+
+echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
+echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
+echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
+
+# svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+# svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/luci-app-bypass
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
