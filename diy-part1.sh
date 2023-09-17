@@ -16,7 +16,7 @@
 # 汇总常用插件
 # sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
-sed -i '$a src-git kenzo https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+sed -i '$a src-git kenzok8 https://github.com/kenzok8/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages' feeds.conf.default
 # echo 'src-git liuran001 https://github.com/liuran001/openwrt-packages' >>feeds.conf.default
 
@@ -41,7 +41,9 @@ echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >
 # svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/luci-app-bypass
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
-git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
+
+# kenzok8 inclued lua-maxminddb
+# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 
 # echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky' >>feeds.conf.default
 # echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
