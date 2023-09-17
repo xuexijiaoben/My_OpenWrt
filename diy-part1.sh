@@ -66,7 +66,8 @@ git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxmi
 
 # 主题
 # https://github.com/gngpp/luci-theme-design
-echo 'src-git neobird https://github.com/thinktip/luci-theme-neobird' >>feeds.conf.default
+# echo 'src-git neobird https://github.com/thinktip/luci-theme-neobird' >>feeds.conf.default
+git clone https://github.com/thinktip/luci-theme-neobird feeds/luci/themes/luci-theme-neobird
 # rm -rf feeds/luci/themes/luci-theme-argon
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
 # git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/themes/luci-app-argon-config
