@@ -28,6 +28,16 @@ sed -i 's/OpenWrt/N1/g' package/base-files/files/bin/config_generate
 # 7.修正连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
+# 修改晶晨宝盒默认配置
+# 1.Set the download repository of the OpenWrt files to your github.com
+sed -i "s|https.*/OpenWrt|https://github.com/xuexijiaoben/My-N1-shangyou-dabao|g" package/luci-app-amlogic/root/etc/config/amlogic
+# 2.Set the keywords of Tags in your github.com Releases
+sed -i "s|ARMv8|armvirt|g" package/luci-app-amlogic/root/etc/config/amlogic
+# 3.Set the suffix of the OPENWRT files in your github.com Releases
+# sed -i "s|.img.gz|.img.gz|g" package/luci-app-amlogic/root/etc/config/amlogic
+# 4.Set the download path of the kernel in your github.com repository
+# sed -i "s|opt/kernel|opt/kernel|g" package/luci-app-amlogic/root/etc/config/amlogic
+
 # Add autocore support for armvirt
 sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
 # sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
