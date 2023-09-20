@@ -178,6 +178,7 @@ jobs:
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
+        retention-days: 3 # <= 这里可以设置保留天数
 
     - name: Package OpenWrt Firmware
       uses: unifreq/openwrt_packit@master
