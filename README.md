@@ -4,11 +4,11 @@
 
 ./scripts/diffconfig.sh > seed.config
 
-NetData
-If NetData doesn't work correctly,
-Take N1 as an example,
-SSH into container and run command :chown -R root:root /usr/share/netdata/
-then refresh the IP:19999, it should be working properly.
+* NetData：
+* If NetData doesn't work correctly,
+* Take N1 as an example,
+* SSH into container and run command :chown -R root:root /usr/share/netdata/
+* then refresh the IP:19999, it should be working properly.
 
 
 https://github.com/Netflixxp/shangyou
