@@ -21,6 +21,7 @@ https://github.com/Netflixxp/shangyou
 * 上述可以下载下来解压缩手动上传至/mnt/mmcblk2p4
 * chmod +x openwrt-update-amlogic
 * `./openwrt-update-amlogic` 之后有提示，输入`y`为保留配置升级，选`n`相当于重装。升级完成后系统会自动重启，稍安勿躁。
+* chmod 777 openwrt-update-amlogic
 
 
 ## [`ophub 的 Openwrt 打包源码`](https://github.com/ophub/flippy-openwrt-actions)
