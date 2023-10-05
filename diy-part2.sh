@@ -14,13 +14,16 @@
 sed -i 's/192.168.1.1/192.168.2.3/g' package/base-files/files/bin/config_generate
 
 # 2.修改主机名
-sed -i 's/OpenWrt/N1/g' package/base-files/files/bin/config_generate
+sed -i 's/OpenWrt/Phicomm_N1/g' package/base-files/files/bin/config_generate
 
 # 4.修改版本号
 # sed -i "s/OpenWrt /0012h build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
 
 # 5.修改默认主题
 # sed -i ' s/luci-theme-bootstrap/luci-theme-argon/g ' feeds/luci/collections/luci/Makefile
+# 或
+# default_theme='opentomcat'
+# sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/config/luci
 
 # 6.设置ttyd免登录
 # sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd
@@ -37,6 +40,10 @@ sed -i "s|ARMv8|armvirt|g" feeds/kenzok8/luci-app-amlogic/root/etc/config/amlogi
 # sed -i "s|.img.gz|.img.gz|g" feeds/kenzok8/luci-app-amlogic/root/etc/config/amlogic
 # 4.Set the download path of the kernel in your github.com repository
 # sed -i "s|opt/kernel|opt/kernel|g" feeds/kenzok8/luci-app-amlogic/root/etc/config/amlogic
+
+
+# echo '修改时区'
+# sed -i "s/'UTC'/'CST-8'\n   set system.@system[-1].zonename='Asia\/Shanghai'/g" package/base-files/files/bin/config_generate
 
 # Add autocore support for armvirt
 sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
