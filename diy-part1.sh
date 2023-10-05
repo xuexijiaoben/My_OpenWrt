@@ -10,9 +10,6 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
 
-# Uncomment a feed source
-# sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
-
 # 汇总常用插件
 # sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
@@ -67,9 +64,11 @@ git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-
 # git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 
 # 主题
+git clone https://github.com/thinktip/luci-theme-neobird.git feeds/luci/themes/luci-theme-neobird
+git clone https://github.com/Leo-Jo-My/luci-theme-opentomcat.git feeds/luci/themes/luci-theme-opentomcat
+
 # https://github.com/gngpp/luci-theme-design
 # echo 'src-git neobird https://github.com/thinktip/luci-theme-neobird' >>feeds.conf.default
-git clone https://github.com/thinktip/luci-theme-neobird feeds/luci/themes/luci-theme-neobird
 # rm -rf feeds/luci/themes/luci-theme-argon
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
 # git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/themes/luci-app-argon-config
