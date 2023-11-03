@@ -37,6 +37,8 @@ echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 # svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/luci-app-bypass
+svn co https://github.com/kenzok8/small-package/trunk/lua-neturl package/lua-neturl
+svn co https://github.com/kenzok8/small-package/trunk/redsocks2 package/redsocks2
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 
 # kenzok8 inclued lua-maxminddb
