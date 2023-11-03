@@ -32,9 +32,9 @@ sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/conf
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
 # 禁用wifi
-sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # 修改wifi名字
-sed -i 's/ssid=OpenWrt/ssid=N1OpenWrt' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# sed -i 's/ssid=OpenWrt/ssid=N1OpenWrt' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 修改晶晨宝盒默认配置
 # 1.Set the download repository of the OpenWrt files to your github.com
