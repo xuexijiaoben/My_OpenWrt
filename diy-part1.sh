@@ -40,6 +40,10 @@ svn co https://github.com/kenzok8/small-package/trunk/lua-neturl package/lua-net
 svn co https://github.com/kenzok8/small-package/trunk/redsocks2 package/redsocks2
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 
+# v2raya
+# svn co https://github.com/v2rayA/v2raya-openwrt/trunk/v2raya package/v2raya
+# svn co https://github.com/v2rayA/v2raya-openwrt/trunk/luci-app-v2raya package/luci-app-v2raya
+
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 # svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
 # kenzok8 inclued lua-maxminddb
