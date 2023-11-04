@@ -38,7 +38,9 @@ svn co https://github.com/fw876/helloworld/branches/main/shadow-tls package/shad
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/luci-app-bypass
 svn co https://github.com/kenzok8/small-package/trunk/lua-neturl package/lua-neturl
 svn co https://github.com/kenzok8/small-package/trunk/redsocks2 package/redsocks2
-git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
+
+#  已删库
+#  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 
 # v2raya
 # svn co https://github.com/v2rayA/v2raya-openwrt/trunk/v2raya package/v2raya
