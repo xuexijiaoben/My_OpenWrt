@@ -39,9 +39,9 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 # svn co https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
 # svn co https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
 
-svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/luci-app-bypass
-svn co https://github.com/kenzok8/small-package/trunk/lua-neturl package/lua-neturl
-svn co https://github.com/kenzok8/small-package/trunk/redsocks2 package/redsocks2
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-neturl package/lua-neturl
+# svn co https://github.com/kiddin9/openwrt-packages/trunk/redsocks2 package/redsocks2
 
 #  已删库
 #  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
