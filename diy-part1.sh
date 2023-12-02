@@ -20,7 +20,15 @@
 echo 'src-git alist https://github.com/sbwml/luci-app-alist.git' >>feeds.conf.default
 echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 echo 'src-git openclash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
+https://github.com/sirpdboy/luci-app-advanced.git
+https://github.com/sirpdboy/luci-app-lucky.git
+https://github.com/sirpdboy/luci-app-ddns-go.git
 
+https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git
+
+svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
+svn co https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
+svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
 
 
 # Add a feed source
