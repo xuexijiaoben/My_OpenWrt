@@ -31,6 +31,8 @@ svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguar
 
 
 # Add a feed source
+# 添加额外软件包
+# git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
 echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
 
@@ -58,17 +60,14 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-neturl package/lua-neturl
 # svn co https://github.com/kiddin9/openwrt-packages/trunk/redsocks2 package/redsocks2
 
-#  已删库
-#  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
-# kenzok8 inclued lua-maxminddb
-# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
-
 # v2raya
 # svn co https://github.com/v2rayA/v2raya-openwrt/trunk/v2raya package/v2raya
 # svn co https://github.com/v2rayA/v2raya-openwrt/trunk/luci-app-v2raya package/luci-app-v2raya
 
-# 添加额外软件包
-# git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+#  已删库
+#  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
+# kenzok8 inclued lua-maxminddb
+# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 
 # 主题
 git clone https://github.com/thinktip/luci-theme-neobird.git feeds/luci/themes/luci-theme-neobird
