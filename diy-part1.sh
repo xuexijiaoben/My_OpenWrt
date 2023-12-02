@@ -34,9 +34,11 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
-# echo 'src-git ssrplus https://github.com/fw876/helloworld.git;main' >>feeds.conf.default
-svn co https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
-svn co https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
+
+echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.conf.default
+# svn co https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
+# svn co https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
+
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-bypass package/luci-app-bypass
 svn co https://github.com/kenzok8/small-package/trunk/lua-neturl package/lua-neturl
 svn co https://github.com/kenzok8/small-package/trunk/redsocks2 package/redsocks2
