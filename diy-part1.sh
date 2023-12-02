@@ -18,7 +18,6 @@
 
 echo 'src-git alist https://github.com/sbwml/luci-app-alist.git' >>feeds.conf.default
 echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
-echo 'src-git openclash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
 echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky.git' >>feeds.conf.default
 echo 'src-git ddnsgo https://github.com/sirpdboy/luci-app-ddns-go.git' >>feeds.conf.default
 git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
@@ -47,10 +46,10 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 # git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
 
+echo 'src-git openclash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
-
 echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.conf.default
 # svn co https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
 # svn co https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
