@@ -22,9 +22,11 @@ echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cd
 echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
 
 # 仿istore
-svn co https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-quickstart package/istore/luci-app-quickstart
-svn co https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-istorex package/istore/luci-app-istorex
-svn co https://github.com/linkease/nas-packages/trunk/network/services/quickstart package/istore/quickstart
+echo 'src-git nas https://github.com/linkease/nas-packages.git;master' >> feeds.conf.default
+echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >> feeds.conf.default
+# svn co https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-quickstart package/istore/luci-app-quickstart
+# svn co https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-istorex package/istore/luci-app-istorex
+# svn co https://github.com/linkease/nas-packages/trunk/network/services/quickstart package/istore/quickstart
 
 # 科学上网插件
 # git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
