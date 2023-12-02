@@ -20,8 +20,8 @@
 echo 'src-git alist https://github.com/sbwml/luci-app-alist.git' >>feeds.conf.default
 echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 echo 'src-git openclash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
-echo 'src-git https://github.com/sirpdboy/luci-app-lucky.git' >>feeds.conf.default
-echo 'src-git https://github.com/sirpdboy/luci-app-ddns-go.git' >>feeds.conf.default
+echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky.git' >>feeds.conf.default
+echo 'src-git ddnsgo https://github.com/sirpdboy/luci-app-ddns-go.git' >>feeds.conf.default
 git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 git clone --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-aliddns
