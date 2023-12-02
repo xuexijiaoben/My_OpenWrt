@@ -12,7 +12,6 @@
 
 # 汇总常用插件
 # sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
-# sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 # sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages' feeds.conf.default
 # echo 'src-git liuran001 https://github.com/liuran001/openwrt-packages' >>feeds.conf.default
 # sed -i '$a src-git kenzok8 https://github.com/kenzok8/openwrt-packages' feeds.conf.default
@@ -25,7 +24,8 @@ echo 'src-git ddnsgo https://github.com/sirpdboy/luci-app-ddns-go.git' >>feeds.c
 git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
 git clone --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-aliddns
-svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
+# svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
+svn co https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
 svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
 
@@ -43,6 +43,7 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 # svn co https://github.com/linkease/nas-packages/trunk/network/services/quickstart package/istore/quickstart
 
 # 科学上网插件
+# sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 # git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
 
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
