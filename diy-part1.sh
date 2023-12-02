@@ -60,21 +60,14 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 
 #  已删库
 #  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
+# kenzok8 inclued lua-maxminddb
+# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 
 # v2raya
 # svn co https://github.com/v2rayA/v2raya-openwrt/trunk/v2raya package/v2raya
 # svn co https://github.com/v2rayA/v2raya-openwrt/trunk/luci-app-v2raya package/luci-app-v2raya
 
-# svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
-# svn co https://github.com/kenzok8/small-package/trunk/luci-app-passwall package/luci-app-passwall
-# kenzok8 inclued lua-maxminddb
-# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
-# echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky' >>feeds.conf.default
-# echo 'src-git OpenClash https://github.com/vernesong/OpenClash.git' >>feeds.conf.default
-
 # 添加额外软件包
-# echo 'src-git alist https://github.com/sbwml/luci-app-alist' >>feeds.conf.default
-# echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 # git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 
 # 主题
@@ -88,8 +81,6 @@ rm -rf feeds/luci/applications/luci-app-argon-config # if have
 git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/applications/luci-app-argon-config
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
 
-# https://github.com/gngpp/luci-theme-design
-# echo 'src-git neobird https://github.com/thinktip/luci-theme-neobird' >>feeds.conf.default
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
