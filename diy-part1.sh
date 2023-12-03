@@ -69,6 +69,10 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 # kenzok8 inclued lua-maxminddb
 # git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 
+
+./scripts/feeds update -a
+./scripts/feeds install -a
+
 # 主题
 git clone https://github.com/thinktip/luci-theme-neobird.git feeds/luci/themes/luci-theme-neobird
 git clone https://github.com/Leo-Jo-My/luci-theme-opentomcat.git feeds/luci/themes/luci-theme-opentomcat
@@ -80,6 +84,4 @@ rm -rf feeds/luci/applications/luci-app-argon-config # if have
 git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/applications/luci-app-argon-config
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
 
-
-./scripts/feeds update -a
 ./scripts/feeds install -a
