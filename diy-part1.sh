@@ -27,7 +27,7 @@ git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
 svn co https://github.com/kenzok8/small-package/trunk/filebrowser package/filebrowser
 svn co https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
-svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
+# svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
 
 
 # Add a feed source
