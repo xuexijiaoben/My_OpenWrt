@@ -76,6 +76,7 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 # 主题
 git clone https://github.com/thinktip/luci-theme-neobird.git feeds/luci/themes/luci-theme-neobird
 git clone https://github.com/Leo-Jo-My/luci-theme-opentomcat.git feeds/luci/themes/luci-theme-opentomcat
+git clone https://github.com/derisamedia/luci-theme-alpha.git feeds/luci/themes/luci-theme-alpha
 
 # echo '### Argon Theme Config ###'
 rm -rf feeds/luci/themes/luci-theme-argon
