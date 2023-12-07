@@ -24,9 +24,15 @@ git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/lu
 git clone --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-aliddns
 # svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
-svn co https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
-svn co https://github.com/kenzok8/small-package/trunk/filebrowser package/filebrowser
-svn co https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
+
+git clone https://github.com/kenzok8/small-package.git kenzok8
+cp -rf kenzok8/filebrowser package/filebrowser
+cp -rf kenzok8/luci-app-filebrowser package/luci-app-filebrowser
+cp -rf kenzok8/luci-app-adguardhome package/luci-app-adguardhome
+rm -rf kenzok8
+# svn co https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
+# svn co https://github.com/kenzok8/small-package/trunk/filebrowser package/filebrowser
+# svn co https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
 # svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
 
 
