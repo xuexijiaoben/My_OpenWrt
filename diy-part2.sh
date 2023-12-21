@@ -20,7 +20,7 @@ sed -i 's/OpenWrt/Phicomm_N1/g' package/base-files/files/bin/config_generate
 # sed -i "s/OpenWrt /0012h build $(TZ=UTC-8 date "+%Y.%m.%d") @ OpenWrt /g" package/lean/default-settings/files/zzz-default-settings
 
 # 5.修改默认主题
-sed -i ' s/luci-theme-bootstrap/luci-theme-argon/g ' feeds/luci/collections/luci/Makefile
+sed -i ' s/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile
 # 或
 # default_theme='opentomcat'
 # sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/config/luci
@@ -30,6 +30,12 @@ sed -i ' s/luci-theme-bootstrap/luci-theme-argon/g ' feeds/luci/collections/luci
 
 # 7.修正连接数
 sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
+
+# 替换终端为bash
+# sed -i 's/\/bin\/ash/\/bin\/bash/' package/base-files/files/etc/passwd
+
+# 删除默认密码
+# sed -i "/CYXluq4wUazHjmCDBCqXF/d" package/lean/default-settings/files/zzz-default-settings
 
 # 禁用wifi
 # sed -i 's/disabled=0/disabled=1/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
