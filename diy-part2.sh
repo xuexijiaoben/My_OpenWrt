@@ -42,6 +42,14 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 # 修改wifi名字
 # sed -i 's/ssid=OpenWrt/ssid=N1OpenWrt' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
+# 修改本地时间格式
+# sed -i 's/os.date()/os.date("%a %Y-%m-%d %H:%M:%S")/g' package/lean/autocore/files/*/index.htm
+
+# 修改版本为编译日期
+# date_version=$(date +"%y.%m.%d")
+# orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
+# sed -i "s/${orig_version}/R${date_version} by Huoleifeng/g" package/lean/default-settings/files/zzz-default-settings
+
 # 修改晶晨宝盒默认配置
 # 1.Set the download repository of the OpenWrt files to your github.com
 # sed -i "s|https.*/OpenWrt|https://github.com/xuexijiaoben/My-N1-shangyou-dabao|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
