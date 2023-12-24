@@ -44,6 +44,8 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 
 # 修改本地时间格式
 # sed -i 's/os.date()/os.date("%a %Y-%m-%d %H:%M:%S")/g' package/lean/autocore/files/*/index.htm
+# echo '修改时区'
+# sed -i "s/'UTC'/'CST-8'\n   set system.@system[-1].zonename='Asia\/Shanghai'/g" package/base-files/files/bin/config_generate
 
 # 修改版本为编译日期
 # date_version=$(date +"%y.%m.%d")
@@ -51,15 +53,6 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 # sed -i "s/${orig_version}/R${date_version} by Huoleifeng/g" package/lean/default-settings/files/zzz-default-settings
 
 # 修改晶晨宝盒默认配置
-# 1.Set the download repository of the OpenWrt files to your github.com
-# sed -i "s|https.*/OpenWrt|https://github.com/xuexijiaoben/My-N1-shangyou-dabao|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
-# 2.Set the keywords of Tags in your github.com Releases
-# sed -i "s|ARMv8|armvirt|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
-# 3.Set the suffix of the OPENWRT files in your github.com Releases
-# sed -i "s|.img.gz|.img.gz|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
-# 4.Set the download path of the kernel in your github.com repository
-# sed -i "s|opt/kernel|opt/kernel|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
-
 # 1.设置OpenWrt 文件的下载仓库
 sed -i "s|amlogic_firmware_repo.*|amlogic_firmware_repo 'https://github.com/xuexijiaoben/My-N1-shangyou-dabao'|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
 
@@ -72,9 +65,6 @@ sed -i "s|ARMv8|armvirt|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogi
 # 4.设置 OpenWrt 内核的下载路径
 sed -i "s|amlogic_kernel_path.*|amlogic_kernel_path 'https://github.com/breakings/OpenWrt'|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
 
-
-# echo '修改时区'
-# sed -i "s/'UTC'/'CST-8'\n   set system.@system[-1].zonename='Asia\/Shanghai'/g" package/base-files/files/bin/config_generate
 
 # Add autocore support for armvirt
 # sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
