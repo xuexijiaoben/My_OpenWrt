@@ -165,7 +165,9 @@ jobs:
       #uses: klever1988/cachewrtbuild@main
       #with:
         #ccache: 'true'
-        #clean: 'false'
+        #mixkey: ${{ env.TARGET_DEVICE_ARCH }}
+        #toolchain: 'true'
+        #clean: ${{github.event.inputs.clean}}
         #prefix: ${{ github.workspace }}/openwrt
     - name: Cache Toolchain
       if: env.CACHE_TOOLCHAIN == 'true'
