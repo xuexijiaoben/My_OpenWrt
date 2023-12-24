@@ -32,8 +32,8 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8_ROOTFS
-  PRODUCT_NAME: ARMv8_ROOTFS
+  # FILE_NAME: ARMv8_ROOTFS
+  # PRODUCT_NAME: ARMv8_ROOTFS
 
 jobs:
   build:
@@ -277,7 +277,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag: openwrt_armvirt_v8_${{ env.PACKAGED_OUTPUTDATE }}
+        # name:  R${{ env.DATE }} for ${{ env.PRODUCT_NAME }}
+        tag: openwrt_armvirt_ARMv8_${{ env.PACKAGED_OUTPUTDATE }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
         #token: ${{ secrets.GH_TOKEN }}
