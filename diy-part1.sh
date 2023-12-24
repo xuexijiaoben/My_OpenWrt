@@ -11,7 +11,7 @@
 #
 
 # 汇总常用插件
-# sed -i '1i src-git haibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
+# sed -i '1i src-git haiibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages' feeds.conf.default
 # echo 'src-git liuran001 https://github.com/liuran001/openwrt-packages' >>feeds.conf.default
 # sed -i '$a src-git kenzok8 https://github.com/kenzok8/openwrt-packages' feeds.conf.default
@@ -53,18 +53,19 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 # 科学上网插件
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 # git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
+# svn export https://github.com/haiibo/packages/trunk/luci-app-vssr package/luci-app-vssr
 
 echo 'src-git openclash https://github.com/vernesong/OpenClash.git;dev' >>feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.conf.default
-# svn co https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
-# svn co https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
+# svn export https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
+# svn export https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
 
-# svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
-# svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-neturl package/lua-neturl
-# svn co https://github.com/kiddin9/openwrt-packages/trunk/redsocks2 package/redsocks2
+# svn export https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
+# svn export https://github.com/kiddin9/openwrt-packages/trunk/lua-neturl package/lua-neturl
+# svn export https://github.com/kiddin9/openwrt-packages/trunk/redsocks2 package/redsocks2
 
 # v2raya
 # svn co https://github.com/v2rayA/v2raya-openwrt/trunk/v2raya package/v2raya
