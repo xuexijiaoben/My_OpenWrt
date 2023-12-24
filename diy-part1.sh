@@ -30,10 +30,10 @@ cp -rf kenzok8/filebrowser package/filebrowser
 cp -rf kenzok8/luci-app-filebrowser package/luci-app-filebrowser
 cp -rf kenzok8/luci-app-adguardhome package/luci-app-adguardhome
 rm -rf kenzok8
-# svn co https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
-# svn co https://github.com/kenzok8/small-package/trunk/filebrowser package/filebrowser
-# svn co https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
-# svn co https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
+# svn export https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
+# svn export https://github.com/kenzok8/small-package/trunk/filebrowser package/filebrowser
+# svn export https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
+# svn export https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
 
 
 # Add a feed source
