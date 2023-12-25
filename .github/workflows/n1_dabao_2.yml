@@ -104,26 +104,18 @@ jobs:
         echo "status=success" >> ${GITHUB_OUTPUT}
         df -Th
     
-    - name: Combine Disks
-      uses: easimon/maximize-build-space@master
-      with:
-        swap-size-mb: 1024
-        temp-reserve-mb: 100
-        root-reserve-mb: 1024
-    
     - name: Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        # ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-        
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         # 利用挂载在 /mnt/ 的 14G 额外空间:
-        #sudo mkdir -p -m 777 /mnt/openwrt/dl /mnt/openwrt/feeds 
-        #ln -s /mnt/openwrt/dl /workdir/openwrt/dl
-        #ln -s /mnt/openwrt/feeds /workdir/openwrt/feeds
-        ## ln -s /mnt/openwrt/staging_dir ./staging_dir
-        #df -h
+        sudo mkdir -p -m 777 /mnt/openwrt/dl /mnt/openwrt/feeds 
+        ln -s /mnt/openwrt/dl /workdir/openwrt/dl
+        ln -s /mnt/openwrt/feeds /workdir/openwrt/feeds
+        # ln -s /mnt/openwrt/staging_dir ./staging_dir
+        df -h
     
     - name: Cache Toolchain
       if: env.CACHE_TOOLCHAIN == 'true'
@@ -173,6 +165,7 @@ jobs:
         rm -rf $GITHUB_WORKSPACE/.git
         rm -rf $GITHUB_WORKSPACE/opt
         df -Th
+    
     - name: Compile the firmware
       id: compile
       run: |
@@ -183,6 +176,7 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+    
     - name: Clean up server space
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
