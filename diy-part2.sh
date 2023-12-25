@@ -71,6 +71,6 @@ sed -i "s|amlogic_kernel_path.*|amlogic_kernel_path 'https://github.com/breaking
 sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
 
 # 编译 po2lmo (如果有po2lmo可跳过)
-pushd feeds/openclash/luci-app-openclash/tools/po2lmo
-make && sudo make install
-popd
+# pushd feeds/openclash/luci-app-openclash/tools/po2lmo
+# make && sudo make install
+# popd
