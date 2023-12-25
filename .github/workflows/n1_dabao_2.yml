@@ -123,7 +123,7 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        # ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         
         # 利用挂载在 /mnt/ 的 14G 额外空间:
         #sudo mkdir -p -m 777 /mnt/openwrt/dl /mnt/openwrt/feeds 
@@ -131,7 +131,8 @@ jobs:
         #ln -s /mnt/openwrt/feeds /workdir/openwrt/feeds
         ## ln -s /mnt/openwrt/staging_dir ./staging_dir
         #df -h
-        
+
+        cd openwrt
         echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
         COMMIT_AUTHOR=$(git show -s --date=short --format="作者: %an")
         echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >> $GITHUB_ENV
