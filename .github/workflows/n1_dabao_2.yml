@@ -34,19 +34,12 @@ env:
   TZ: Asia/Shanghai
   # FILE_NAME: ARMv8_ROOTFS
   # PRODUCT_NAME: ARMv8_ROOTFS
+  CACHE_TOOLCHAIN: true
 
 jobs:
   build:
     runs-on: ubuntu-22.04
     if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
-
-    outputs:
-      COMMIT_AUTHOR: ${{ steps.clone.outputs.COMMIT_AUTHOR }}
-      COMMIT_DATE: ${{ steps.clone.outputs.COMMIT_DATE }}
-      COMMIT_MESSAGE: ${{ steps.clone.outputs.COMMIT_MESSAGE }}
-      COMMIT_HASH: ${{ steps.clone.outputs.COMMIT_HASH }}
-      DEVICE_TARGET: ${{ steps.variable.outputs.DEVICE_TARGET }}
-      DEVICE_SUBTARGET: ${{ steps.variable.outputs.DEVICE_SUBTARGET }}
 
     steps:
     
@@ -131,52 +124,16 @@ jobs:
         #ln -s /mnt/openwrt/feeds /workdir/openwrt/feeds
         ## ln -s /mnt/openwrt/staging_dir ./staging_dir
         #df -h
-
-        cd openwrt
-        echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
-        COMMIT_AUTHOR=$(git show -s --date=short --format="作者: %an")
-        echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >> $GITHUB_ENV
-        echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >> $GITHUB_OUTPUT
-        COMMIT_DATE=$(git show -s --date=short --format="时间: %ci")
-        echo "COMMIT_DATE=$COMMIT_DATE" >> $GITHUB_ENV
-        echo "COMMIT_DATE=$COMMIT_DATE" >> $GITHUB_OUTPUT
-        COMMIT_MESSAGE=$(git show -s --date=short --format="内容: %s")
-        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
-        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_OUTPUT
-        COMMIT_HASH=$(git show -s --date=short --format="hash: %H")
-        echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
-        echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_OUTPUT
-        
-    - name: Generate Variables
-      id: variable
-      run: |
-        cp $CONFIG_FILE $OPENWRT_PATH/.config
-        cd $OPENWRT_PATH
-        make defconfig > /dev/null 2>&1
-        SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
-        echo "SOURCE_REPO=$SOURCE_REPO" >> $GITHUB_ENV
-        DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')
-        echo "DEVICE_TARGET=$DEVICE_TARGET" >> $GITHUB_ENV
-        echo "DEVICE_TARGET=$DEVICE_TARGET" >> $GITHUB_OUTPUT
-        DEVICE_SUBTARGET=$(cat .config | grep CONFIG_TARGET_SUBTARGET | awk -F '"' '{print $2}')
-        echo "DEVICE_SUBTARGET=$DEVICE_SUBTARGET" >> $GITHUB_ENV
-        echo "DEVICE_SUBTARGET=$DEVICE_SUBTARGET" >> $GITHUB_OUTPUT
     
-    #- name: Cache Toolchain
-      #uses: klever1988/cachewrtbuild@main
-      #with:
-        #ccache: 'true'
-        #mixkey: ${{ env.TARGET_DEVICE_ARCH }}
-        #toolchain: 'true'
-        #clean: ${{github.event.inputs.clean}}
-        #prefix: ${{ github.workspace }}/openwrt
     - name: Cache Toolchain
       if: env.CACHE_TOOLCHAIN == 'true'
-      uses: HiGarfield/cachewrtbuild@main
+      uses: klever1988/cachewrtbuild@main
       with:
-        ccache: false
-        mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
-        prefix: ${{ env.OPENWRT_PATH }}
+        ccache: 'true'
+        mixkey: ${{ env.TARGET_DEVICE_ARCH }}
+        toolchain: 'true'
+        clean: ${{github.event.inputs.clean}}
+        prefix: ${{ github.workspace }}/openwrt
 
     - name: Load custom feeds
       run: |
