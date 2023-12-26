@@ -34,6 +34,7 @@ env:
   TZ: Asia/Shanghai
   # FILE_NAME: ARMv8_ROOTFS
   # PRODUCT_NAME: ARMv8_ROOTFS
+  CACHE_TOOLCHAIN: true
 
 jobs:
   build:
