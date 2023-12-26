@@ -32,8 +32,6 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  # FILE_NAME: ARMv8_ROOTFS
-  # PRODUCT_NAME: ARMv8_ROOTFS
   CACHE_TOOLCHAIN: true
 
 jobs:
@@ -48,12 +46,8 @@ jobs:
       COMMIT_HASH: ${{ steps.clone.outputs.COMMIT_HASH }}
       DEVICE_TARGET: ${{ steps.variable.outputs.DEVICE_TARGET }}
       DEVICE_SUBTARGET: ${{ steps.variable.outputs.DEVICE_SUBTARGET }}
-
-    steps:
     
-    - name: Checkout
-      uses: actions/checkout@main
-      
+    steps:  
     - name: Check server configuration
       run: |
         echo "警告⚠"
@@ -71,15 +65,15 @@ jobs:
         echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
         echo "硬盘详情："
         df -Th
+    
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        # docker rmi `docker images -q`
-        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap* aspnetcore*
-        [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
-        sudo -E apt update
+        docker rmi $(docker images -q)
+        sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android $AGENT_TOOLSDIRECTORY
+        sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
+        sudo -E apt-get -y update
         sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
         bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
         git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev \
@@ -91,6 +85,10 @@ jobs:
         sudo -E systemctl daemon-reload
         sudo -E apt clean
         sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        echo "status=success" >> ${GITHUB_OUTPUT}
+        df -Th
     
     - name: Combine Disks
       uses: easimon/maximize-build-space@master
@@ -99,13 +97,17 @@ jobs:
         temp-reserve-mb: 100
         root-reserve-mb: 1024
     
+    - name: Checkout
+      uses: actions/checkout@main
+    
     - name: Clone source code
       id: clone
+      working-directory: /workdir
       run: |
-        df -hT $GITHUB_WORKSPACE
+        df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
+        # echo "OPENWRT_PATH=$PWD" >> $GITHUB_ENV
         COMMIT_AUTHOR=$(git show -s --date=short --format="作者: %an")
         echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >> $GITHUB_ENV
         echo "COMMIT_AUTHOR=$COMMIT_AUTHOR" >> $GITHUB_OUTPUT
@@ -118,13 +120,32 @@ jobs:
         COMMIT_HASH=$(git show -s --date=short --format="hash: %H")
         echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
         echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_OUTPUT
-        
+
+    - name: Load custom feeds
+      run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
+    
+    - name: Update feeds
+      run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Install feeds
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: Load custom configuration
+      run: |
+        [ -e files ] && mv files openwrt/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+    
     - name: Generate Variables
       id: variable
       run: |
-        cp $CONFIG_FILE $OPENWRT_PATH/.config
-        cd $OPENWRT_PATH
-        make defconfig > /dev/null 2>&1
+        cd openwrt
         SOURCE_REPO="$(echo $REPO_URL | awk -F '/' '{print $(NF)}')"
         echo "SOURCE_REPO=$SOURCE_REPO" >> $GITHUB_ENV
         DEVICE_TARGET=$(cat .config | grep CONFIG_TARGET_BOARD | awk -F '"' '{print $2}')
@@ -140,62 +161,77 @@ jobs:
       with:
         ccache: false
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
-        prefix: ${{ env.OPENWRT_PATH }}
-
-
-    - name: Load custom feeds
-      run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF $OPENWRT_PATH/feeds.conf.default
-        chmod +x $DIY_P1_SH
-        cd $OPENWRT_PATH
-        $GITHUB_WORKSPACE/$DIY_P1_SH
-    - name: Update feeds
-      run: cd $OPENWRT_PATH && ./scripts/feeds update -a
-
-    - name: Install feeds
-      run: cd $OPENWRT_PATH && ./scripts/feeds install -a
-
-    - name: Load custom configuration
-      run: |
-        [ -e files ] && mv files $OPENWRT_PATH/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $OPENWRT_PATH/.config
-        chmod +x $DIY_P2_SH
-        cd $OPENWRT_PATH
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        # prefix: ${{ env.OPENWRT_PATH }}
+        prefix: ${{ github.workspace }}/openwrt
     
+    #- name: SSH connection to Actions
+    #  uses: P3TERX/ssh2actions@v1.0.0
+    #  if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+    #  env:
+    #    TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    #    TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
     - name: Download package
       id: package
       run: |
-        cd $OPENWRT_PATH
+        cd openwrt
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        rm -rf $GITHUB_WORKSPACE/.git
+        rm -rf $GITHUB_WORKSPACE/opt
+        df -Th
     
     - name: Compile the firmware
       id: compile
       run: |
-        cd $OPENWRT_PATH
+        cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "status=success" >> ${GITHUB_OUTPUT}
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
-        echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
     
     - name: Clean up server space
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
-        cd $OPENWRT_PATH/
+        cd openwrt/
         rm -rf $(ls . | grep -v "^bin$" | xargs) 2>/dev/null
         df -hT ${PWD}
     
+    #- name: Upload bin directory
+    #  uses: actions/upload-artifact@main
+    #  if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+    #  with:
+    #    name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+    #    path: openwrt/bin
+    #    retention-days: 3 # <= 这里可以设置保留天数
+    #- name: Organize files
+    #  id: organize
+    #  if: steps.compile.outputs.status == 'success' && !cancelled()
+    #  run: |
+    #    cd $GITHUB_WORKSPACE/openwrt/bin/packages
+    #    tar -zcvf Packages.tar.gz ./*
+    #    cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+    #    cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+    #    rm -rf packages
+    #    echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+    #    echo "status=success" >> ${GITHUB_OUTPUT}
+    #- name: Upload firmware directory
+    #  uses: actions/upload-artifact@main
+    #  if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
+    #  with:
+    #    name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+    #    path: ${{ env.FIRMWARE }}
+    #    retention-days: 3 # <= 这里可以设置保留天数
+
     - name: Package OpenWrt Firmware
       uses: unifreq/openwrt_packit@master
       # uses: ophub/flippy-openwrt-actions@main
       env:
-        OPENWRT_ARMVIRT: $OPENWRT_PATH/bin/targets/*/*/openwrt-armvirt-64-generic-rootfs.tar.gz
+        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/openwrt-armvirt-64-generic-rootfs.tar.gz
         KERNEL_REPO_URL: breakings/OpenWrt
         KERNEL_VERSION_NAME: 5.15.131_6.1.53
         KERNEL_AUTO_LATEST: true
@@ -238,7 +274,6 @@ jobs:
           - ${{ env.COMMIT_DATE }}
           - ${{ env.COMMIT_MESSAGE }}
           - ${{ env.COMMIT_HASH }}
-
 
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@v2.0.4
