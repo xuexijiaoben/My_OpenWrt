@@ -33,7 +33,7 @@ env:
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
   CACHE_TOOLCHAIN: true
-  FIRMWARE_TAG: armvirt
+  FIRMWARE_TAG: ARMv8
   OPENWRT_TAG: armvirt
 
 jobs:
@@ -248,8 +248,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name:  R${{ env.DATE }} for ${{ env.OPENWRT_TAG }}
-        tag: ${{ env.FIRMWARE_TAG }}
+        name:  R${{ env.DATE }} for ${{ env.OPENWRT_TAG }} ${{ env.FIRMWARE_TAG }}
+        tag: ${{ env.OPENWRT_TAG }} ${{ env.FIRMWARE_TAG }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
         #token: ${{ secrets.GH_TOKEN }}
