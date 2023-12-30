@@ -32,9 +32,6 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  # FILE_NAME: ARMv8_ROOTFS
-  # PRODUCT_NAME: ARMv8_ROOTFS
-  CACHE_TOOLCHAIN: true
 
 jobs:
   build:
