@@ -203,6 +203,8 @@ jobs:
         tar -zcf Packages.tar.gz packages
         rm -rf packages feeds.buildinfo version.buildinfo
         echo "FIRMWARE_PATH=$PWD" >> $GITHUB_ENV
+        Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
+        echo "EMOJI=${Emoji[$[$RANDOM % ${#Emoji[@]}]]}" >> $GITHUB_ENV
     
     - name: Package OpenWrt Firmware
       uses: unifreq/openwrt_packit@master
@@ -223,7 +225,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name:  R${{ env.DATE }} for ${{ env.OPENWRT_TAG }} ${{ env.FIRMWARE_TAG }}
+        name:  R${{ env.DATE }} for ${{ env.OPENWRT_TAG }} ${{ env.FIRMWARE_TAG }} ${{ env.EMOJI }}
         tag: N1_${{ env.OPENWRT_TAG }}_${{ env.FIRMWARE_TAG }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
