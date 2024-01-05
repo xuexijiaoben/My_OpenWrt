@@ -195,17 +195,19 @@ jobs:
         path: openwrt/bin
         # retention-days: 3 # <= 这里可以设置保留天数
     
-    #- name: Organize files
-    #  id: organize
-    #  if: steps.compile.outputs.status == 'success' && !cancelled()
-    #  run: |
-    #    cd $GITHUB_WORKSPACE/openwrt/bin/packages
-    #    tar -zcvf Packages.tar.gz ./*
-    #    cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
-    #    cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
-    #    rm -rf packages
-    #    echo "FIRMWARE=$PWD" >> $GITHUB_ENV
-    #    echo "status=success" >> ${GITHUB_OUTPUT}
+    - name: Organize files
+      id: organize
+      if: steps.compile.outputs.status == 'success' && !cancelled()
+      run: |
+        cd $GITHUB_WORKSPACE/openwrt/bin/packages
+        tar -zcvf Packages.tar.gz ./*
+        cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+        cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
+        rm -rf packages
+        echo "FIRMWARE=$PWD" >> $GITHUB_ENV
+        echo "status=success" >> ${GITHUB_OUTPUT}
+        Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
+        echo "EMOJI=${Emoji[$[$RANDOM % ${#Emoji[@]}]]}" >> $GITHUB_ENV
     
     #- name: Upload firmware directory
     #  uses: actions/upload-artifact@main
@@ -235,7 +237,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # name:  R${{ env.DATE }} for ${{ env.PRODUCT_NAME }}
-        tag: openwrt_armvirt_ARMv8_${{ env.PACKAGED_OUTPUTDATE }}_from_n1
+        tag: openwrt_armvirt_ARMv8_${{ env.PACKAGED_OUTPUTDATE }}_from_n1_${{ env.EMOJI }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
         #token: ${{ secrets.GH_TOKEN }}
