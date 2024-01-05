@@ -194,6 +194,7 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         # retention-days: 3 # <= 这里可以设置保留天数
+    
     #- name: Organize files
     #  id: organize
     #  if: steps.compile.outputs.status == 'success' && !cancelled()
@@ -205,6 +206,7 @@ jobs:
     #    rm -rf packages
     #    echo "FIRMWARE=$PWD" >> $GITHUB_ENV
     #    echo "status=success" >> ${GITHUB_OUTPUT}
+    
     #- name: Upload firmware directory
     #  uses: actions/upload-artifact@main
     #  if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
