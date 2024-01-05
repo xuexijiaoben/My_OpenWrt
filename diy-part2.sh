@@ -54,7 +54,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 
 # 修改晶晨宝盒默认配置
 # 1.设置OpenWrt 文件的下载仓库
-sed -i "s|amlogic_firmware_repo.*|amlogic_firmware_repo 'https://github.com/xuexijiaoben/My-N1-shangyou-dabao'|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
+sed -i "s|amlogic_firmware_repo.*|amlogic_firmware_repo 'https://github.com/xuexijiaoben/My_OpenWrt'|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
 
 # 2.设置 Releases 里 Tags 的关键字
 sed -i "s|ARMv8|armvirt|g" feeds/amlogic/luci-app-amlogic/root/etc/config/amlogic
