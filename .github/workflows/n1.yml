@@ -235,7 +235,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         # name:  R${{ env.DATE }} for ${{ env.PRODUCT_NAME }}
-        tag: openwrt_armvirt_ARMv8_${{ env.PACKAGED_OUTPUTDATE }}
+        tag: openwrt_armvirt_ARMv8_${{ env.PACKAGED_OUTPUTDATE }}_from_n1
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
         #token: ${{ secrets.GH_TOKEN }}
@@ -272,9 +272,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@v0.2.1
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        repo:
         keep_latest: 3
-        delete_tag_pattern:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
