@@ -13,17 +13,19 @@
 # 汇总常用插件
 # sed -i '1i src-git haiibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages' feeds.conf.default
-# echo 'src-git liuran001 https://github.com/liuran001/openwrt-packages' >>feeds.conf.default
 # sed -i '$a src-git kenzok8 https://github.com/kenzok8/openwrt-packages' feeds.conf.default
+# echo 'src-git liuran001 https://github.com/liuran001/openwrt-packages' >>feeds.conf.default
 
 echo 'src-git alist https://github.com/sbwml/luci-app-alist.git' >>feeds.conf.default
 echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky.git' >>feeds.conf.default
 echo 'src-git ddnsgo https://github.com/sirpdboy/luci-app-ddns-go.git' >>feeds.conf.default
-git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
-git clone --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-aliddns
-# svn co https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
+echo 'src-git autotimeset  https://github.com/sirpdboy/luci-app-autotimeset.git' >>feeds.conf.default
+echo 'src-git advancedplus https://github.com/sirpdboy/luci-app-advancedplus.git' >>feeds.conf.default
+# git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
+echo 'src-git unblockneteasemusic https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git' >>feeds.conf.default
+# git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-aliddns
+# svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
 
 git clone https://github.com/kenzok8/small-package.git kenzok8
 cp -rf kenzok8/filebrowser package/filebrowser
@@ -83,11 +85,12 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 # 主题
 git clone https://github.com/thinktip/luci-theme-neobird.git feeds/luci/themes/luci-theme-neobird
 git clone https://github.com/Leo-Jo-My/luci-theme-opentomcat.git feeds/luci/themes/luci-theme-opentomcat
+git clone https://github.com/sirpdboy/luci-theme-kucat.git feeds/luci/themes/luci-theme-kucat
 # git clone https://github.com/derisamedia/luci-theme-alpha.git feeds/luci/themes/luci-theme-alpha
 
 # echo '### Argon Theme Config ###'
 rm -rf feeds/luci/themes/luci-theme-argon
-git clone https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/applications/luci-app-argon-config # if have
 git clone https://github.com/jerrykuku/luci-app-argon-config.git feeds/luci/applications/luci-app-argon-config
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git feeds/luci/themes/luci-theme-argon-18.06
