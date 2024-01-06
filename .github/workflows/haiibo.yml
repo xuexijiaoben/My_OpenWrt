@@ -28,16 +28,16 @@ env:
   CONFIG_FILE: N1.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
-  UPLOAD_BIN_DIR: false
-  UPLOAD_FIRMWARE: false
-  UPLOAD_RELEASE: true
-  TZ: Asia/Shanghai
   CACHE_TOOLCHAIN: true
-  FIRMWARE_TAG: ARMv8
-  OPENWRT_TAG: armvirt
+  UPLOAD_BIN_DIR: false
+  FIRMWARE_RELEASE: true
+  FIRMWARE_TAG: ROOTFS_dibao
+  OPENWRT_RELEASE: true
+  OPENWRT_TAG: armvirt_ARMv8
+  TZ: Asia/Shanghai
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-22.04
     # if: github.event.repository.owner.id == github.event.sender.id || ! github.event.sender.id
 
@@ -180,7 +180,7 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-        echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "FILE_DATE=_$(date +"%Y.%m.%d")" >> $GITHUB_ENV
     
     - name: Check Space Usage
       if: (!cancelled())
@@ -206,7 +206,75 @@ jobs:
         Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
         echo "EMOJI=${Emoji[$[$RANDOM % ${#Emoji[@]}]]}" >> $GITHUB_ENV
     
+    - name: Upload Firmware To Artifact
+      if: steps.compile.outputs.status == 'success' && env.FIRMWARE_RELEASE != 'true'
+      uses: actions/upload-artifact@main
+      with:
+        name: ${{ env.SOURCE_REPO }}-firmware-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}-${{ env.FILE_DATE }}
+        path: ${{ env.FIRMWARE_PATH }}
+
+    - name: Upload Firmware To Release
+      if: steps.compile.outputs.status == 'success' && env.FIRMWARE_RELEASE == 'true'
+      uses: ncipollo/release-action@v1
+      with:
+        name: R${{ env.DATE }} for ${{ env.FIRMWARE_TAG }} ${{ env.EMOJI }}
+        allowUpdates: true
+        tag: ${{ env.FIRMWARE_TAG }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: ${{ env.FIRMWARE_PATH }}/*
+        body: |
+          **This is Temporary Firmware for Armvirt 64, can't be installed directly**
+          ### 📒 固件信息
+          - 🚀 成品固件点击此处跳转➦[PLUS](https://github.com/xuexijiaoben/My_OpenWrt/releases/tag/armvirt_ARMv8)即可下载
+          - 💻 平台架构: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }} (多功能临时底包)
+          - ⚽ 固件源码: ${{ env.REPO_URL }}
+          - 💝 源码分支: ${{ env.REPO_BRANCH }}
+          - 🌐 默认地址: 192.168.2.13
+          - 🔑 默认密码: password
+
+  Package:
+    needs: [Build]
+    runs-on: ubuntu-22.04
+
+    env:
+      COMMIT_AUTHOR: ${{ needs.Build.outputs.COMMIT_AUTHOR }}
+      COMMIT_DATE: ${{ needs.Build.outputs.COMMIT_DATE }}
+      COMMIT_MESSAGE: ${{ needs.Build.outputs.COMMIT_MESSAGE }}
+      COMMIT_HASH: ${{ needs.Build.outputs.COMMIT_HASH }}
+      DEVICE_TARGET: ${{ needs.Build.outputs.DEVICE_TARGET }}
+      DEVICE_SUBTARGET: ${{ needs.Build.outputs.DEVICE_SUBTARGET }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialization Environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        docker rmi $(docker images -q)
+        sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android $AGENT_TOOLSDIRECTORY
+        sudo -E apt-get -y update
+        sudo -E apt-get -y install $(curl -fsSL is.gd/depends_ubuntu_2204)
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get -y clean
+        sudo timedatectl set-timezone "$TZ"
+        Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
+        echo "EMOJI=${Emoji[$[$RANDOM % ${#Emoji[@]}]]}" >> $GITHUB_ENV
+
+    - name: Download Armvirt Firmware
+      id: download
+      run: |
+        FIRMWARE_PATH=openwrt/bin/targets/armvirt/64
+        [ -d $FIRMWARE_PATH ] || mkdir -p $FIRMWARE_PATH
+        cd $FIRMWARE_PATH
+        wget -q $(curl -s "https://api.github.com/repos/$GITHUB_REPOSITORY/releases" | grep "$FIRMWARE_TAG.*rootfs.tar.gz" | awk -F '"' '{print $4}')
+        echo "status=success" >> $GITHUB_OUTPUT
+        echo "DATE=$(date +"%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "DATE1=$(date +"%y.%m.%d")" >> $GITHUB_ENV
+    
     - name: Package OpenWrt Firmware
+      if: steps.download.outputs.status == 'success'
       uses: unifreq/openwrt_packit@master
       # uses: ophub/flippy-openwrt-actions@main
       env:
@@ -217,23 +285,30 @@ jobs:
         PACKAGE_SOC: s905d
         SCRIPT_S905D: mk_s905d_n1.sh
         WHOAMI: huoleifeng
-        #GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DISTRIB_REVISION: R${{ env.DATE1 }} by HuoLeifeng
         
+    - name: Upload OpenWrt To Artifact
+      if: env.PACKAGED_STATUS == 'success' && env.OPENWRT_RELEASE != 'true'
+      uses: kittaakos/upload-artifact-as-is@master
+      with:
+        path: ${{ env.PACKAGED_OUTPUTPATH }}
+    
     - name: Upload OpenWrt Firmware to Release
+      if: env.PACKAGED_STATUS == 'success' && env.OPENWRT_RELEASE == 'true'
       uses: ncipollo/release-action@main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name:  R${{ env.DATE }} for ${{ env.OPENWRT_TAG }} ${{ env.FIRMWARE_TAG }} ${{ env.EMOJI }}
-        tag: N1_${{ env.OPENWRT_TAG }}_${{ env.FIRMWARE_TAG }}
-        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+        name:  R${{ env.DATE }} for ${{ env.OPENWRT_TAG }} N1 ${{ env.EMOJI }}
         allowUpdates: true
-        #token: ${{ secrets.GH_TOKEN }}
+        removeArtifacts: true
+        tag: ${{ env.OPENWRT_TAG }}
+        # token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         body: |
           This is OpenWrt firmware for N1
           ### 📒 Firmware information
-          - 🚀 ARMv8 多功能版，集成插件多适合折腾
+          - 🚀 ARMv8 多功能版，集成插件多
           - 💻 平台架构: ${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
