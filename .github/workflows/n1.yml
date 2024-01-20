@@ -32,6 +32,7 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
+  OPENWRT_TAG: ARMv8_armvirt
 
 jobs:
   build:
@@ -236,8 +237,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: openwrt R${{ env.DATE }} for ${{ env.PRODUCT_NAME }} from n1 ${{ env.EMOJI }}
-        tag: ARMv8_armvirt
+        name: R${{ env.DATE }} for ${{ env.OPENWRT_TAG }} from n1 ${{ env.EMOJI }}
+        tag: ${{ env.OPENWRT_TAG }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
         #token: ${{ secrets.GH_TOKEN }}
