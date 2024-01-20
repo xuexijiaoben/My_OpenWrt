@@ -236,8 +236,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        # name:  R${{ env.DATE }} for ${{ env.PRODUCT_NAME }}
-        tag: openwrt_armvirt_ARMv8_${{ env.PACKAGED_OUTPUTDATE }}_from_n1_${{ env.EMOJI }}
+        name: openwrt R${{ env.DATE }} for ${{ env.PRODUCT_NAME }} from n1 ${{ env.EMOJI }}
+        tag: ARMv8_armvirt
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         allowUpdates: true
         #token: ${{ secrets.GH_TOKEN }}
