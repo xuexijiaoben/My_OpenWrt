@@ -29,6 +29,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-s
 # 或
 # default_theme='opentomcat'
 # sed -i "s/bootstrap/$default_theme/g" feeds/luci/modules/luci-base/root/etc/config/luci
+sed -i "s/luci-static\/bootstrap/luci-static\/argon/g" feeds/luci/modules/luci-base/root/etc/config/luci
 
 # 6.设置ttyd免登录
 # sed -i 's/\/bin\/login/\/bin\/login -f root/' /etc/config/ttyd
