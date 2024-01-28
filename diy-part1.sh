@@ -10,37 +10,61 @@
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 #
 
+function merge_package() {
+    # 参数1是分支名,参数2是库地址,参数3是所有文件下载到指定路径。
+    # 同一个仓库下载多个文件夹直接在后面跟文件名或路径，空格分开。
+    if [[ $# -lt 3 ]]; then
+    	echo "Syntax error: [$#] [$*]" >&2
+        return 1
+    fi
+    trap 'rm -rf "$tmpdir"' EXIT
+    branch="$1" curl="$2" target_dir="$3" && shift 3
+    rootdir="$PWD"
+    localdir="$target_dir"
+    [ -d "$localdir" ] || mkdir -p "$localdir"
+    tmpdir="$(mktemp -d)" || exit 1
+    git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$curl" "$tmpdir"
+    cd "$tmpdir"
+    git sparse-checkout init --cone
+    git sparse-checkout set "$@"
+    # 使用循环逐个移动文件夹
+    for folder in "$@"; do
+        mv -f "$folder" "$rootdir/$localdir"
+    done
+    cd "$rootdir"
+}
+
+merge_package main https://github.com/kenzok8/small-package package/app luci-app-adguardhome
+# merge_package main https://github.com/kenzok8/small-package package/app adguardhome
+merge_package main https://github.com/kenzok8/small-package package/app filebrowser
+merge_package main https://github.com/kenzok8/small-package package/app luci-app-filebrowser
+# bypass
+# merge_package master https://github.com/kiddin9/openwrt-packages package/app luci-app-bypass lua-neturl redsocks2
+# v2raya
+# merge_package master https://github.com/v2rayA/v2raya-openwrt package/app luci-app-v2raya v2raya
+
+# git clone https://github.com/kenzok8/small-package.git kenzok8
+# cp -rf kenzok8/filebrowser package/filebrowser
+# cp -rf kenzok8/luci-app-filebrowser package/luci-app-filebrowser
+# cp -rf kenzok8/luci-app-adguardhome package/luci-app-adguardhome
+
 # 汇总常用插件
 # sed -i '1i src-git haiibo https://github.com/haiibo/openwrt-packages' feeds.conf.default
 # sed -i '$a src-git kiddin9 https://github.com/kiddin9/openwrt-packages' feeds.conf.default
-# sed -i '$a src-git kenzok8 https://github.com/kenzok8/openwrt-packages' feeds.conf.default
-# echo 'src-git liuran001 https://github.com/liuran001/openwrt-packages' >>feeds.conf.default
 
 echo 'src-git alist https://github.com/sbwml/luci-app-alist.git' >>feeds.conf.default
 echo 'src-git amlogic https://github.com/ophub/luci-app-amlogic.git' >>feeds.conf.default
 echo 'src-git lucky https://github.com/sirpdboy/luci-app-lucky.git' >>feeds.conf.default
 echo 'src-git ddnsgo https://github.com/sirpdboy/luci-app-ddns-go.git' >>feeds.conf.default
-git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/luci-app-autotimeset
-git clone --depth 1 https://github.com/sirpdboy/luci-app-advancedplus.git package/luci-app-advancedplus
-# git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
-git clone -b master --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-# git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/luci-app-aliddns
-# svn export https://github.com/immortalwrt/luci/trunk/applications/luci-app-filebrowser package/luci-app-filebrowser
-
-git clone https://github.com/kenzok8/small-package.git kenzok8
-cp -rf kenzok8/filebrowser package/filebrowser
-cp -rf kenzok8/luci-app-filebrowser package/luci-app-filebrowser
-cp -rf kenzok8/luci-app-adguardhome package/luci-app-adguardhome
-rm -rf kenzok8
-# svn export https://github.com/kenzok8/small-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
-# svn export https://github.com/kenzok8/small-package/trunk/filebrowser package/filebrowser
-# svn export https://github.com/kenzok8/small-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
-# svn export https://github.com/kenzok8/small-package/trunk/adguardhome package/adguardhome
-
+git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset.git package/app/luci-app-autotimeset
+git clone --depth 1 https://github.com/sirpdboy/luci-app-advancedplus.git package/app/luci-app-advancedplus
+# git clone --depth 1 https://github.com/sirpdboy/luci-app-advanced.git package/app/luci-app-advanced
+git clone -b master --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/app/luci-app-unblockneteasemusic
+# git clone --depth 1 https://github.com/honwen/luci-app-aliddns package/app/luci-app-aliddns
 
 # Add a feed source
 # 添加额外软件包
-# git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+# git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/app/luci-app-ikoolproxy
 echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
 echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
 
@@ -54,29 +78,19 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 
 # 科学上网插件
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
-# git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
-# svn export https://github.com/haiibo/packages/trunk/luci-app-vssr package/luci-app-vssr
+# git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/app/luci-app-mosdns
+# svn export https://github.com/haiibo/packages/trunk/luci-app-vssr package/app/luci-app-vssr
 
 echo 'src-git openclash https://github.com/vernesong/OpenClash.git;dev' >>feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
 echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.conf.default
-# svn export https://github.com/fw876/helloworld/branches/main/luci-app-ssr-plus package/luci-app-ssr-plus
-# svn export https://github.com/fw876/helloworld/branches/main/shadow-tls package/shadow-tls
-
-# svn export https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
-# svn export https://github.com/kiddin9/openwrt-packages/trunk/lua-neturl package/lua-neturl
-# svn export https://github.com/kiddin9/openwrt-packages/trunk/redsocks2 package/redsocks2
-
-# v2raya
-# svn co https://github.com/v2rayA/v2raya-openwrt/trunk/v2raya package/v2raya
-# svn co https://github.com/v2rayA/v2raya-openwrt/trunk/luci-app-v2raya package/luci-app-v2raya
 
 #  已删库
-#  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
+#  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/app/luci-app-vssr
 # kenzok8 inclued lua-maxminddb
-# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
+# git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/app/lua-maxminddb
 
 
 ./scripts/feeds update -a
