@@ -96,7 +96,7 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/packages/utils/v2dat
-rm -rf feeds/applications/luci-app-mosdns
+rm -rf feeds/luci/applications/luci-app-mosdns
 
 ./scripts/feeds install -a
 
