@@ -44,6 +44,7 @@ merge_package main https://github.com/kenzok8/small-package package/app luci-app
 # merge_package master https://github.com/v2rayA/v2raya-openwrt package/app luci-app-v2raya v2raya
 merge_package main https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/app applications/luci-app-cloudflarespeedtest
 merge_package master https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/app cdnspeedtest
+merge_package v5 https://github.com/sbwml/luci-app-mosdns package/app luci-app-mosdns mosdns v2dat
 
 # git clone https://github.com/kenzok8/small-package.git kenzok8
 # cp -rf kenzok8/filebrowser package/filebrowser
@@ -79,7 +80,6 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 # 科学上网插件
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
 # svn export https://github.com/haiibo/packages/trunk/luci-app-vssr package/app/luci-app-vssr
-git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/app/luci-app-mosdns
 echo 'src-git openclash https://github.com/vernesong/OpenClash.git;dev' >>feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 echo "src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git;main" >> "feeds.conf.default"
