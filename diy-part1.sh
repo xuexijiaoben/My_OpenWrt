@@ -78,8 +78,12 @@ echo 'src-git nas_luci https://github.com/linkease/nas-packages-luci.git;main' >
 
 # 科学上网插件
 # sed -i '$a src-git small https://github.com/kenzok8/small' feeds.conf.default
-# git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/app/luci-app-mosdns
 # svn export https://github.com/haiibo/packages/trunk/luci-app-vssr package/app/luci-app-vssr
+
+rm -rf feeds/packages/net/mosdns
+rm -rf feeds/packages/utils/v2dat
+rm -rf feeds/applications/luci-app-mosdns
+git clone --depth 1 https://github.com/sbwml/luci-app-mosdns.git package/app/luci-app-mosdns
 
 echo 'src-git openclash https://github.com/vernesong/OpenClash.git;dev' >>feeds.conf.default
 echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
