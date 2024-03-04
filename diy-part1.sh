@@ -42,6 +42,8 @@ merge_package main https://github.com/kenzok8/small-package package/app luci-app
 # merge_package master https://github.com/kiddin9/openwrt-packages package/app luci-app-bypass lua-neturl redsocks2
 # v2raya
 # merge_package master https://github.com/v2rayA/v2raya-openwrt package/app luci-app-v2raya v2raya
+merge_package main https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/app applications/luci-app-cloudflarespeedtest
+merge_package master https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/app cdnspeedtest
 
 # git clone https://github.com/kenzok8/small-package.git kenzok8
 # cp -rf kenzok8/filebrowser package/filebrowser
@@ -65,8 +67,6 @@ git clone -b master --depth 1 https://github.com/UnblockNeteaseMusic/luci-app-un
 # Add a feed source
 # 添加额外软件包
 git clone --depth 1  https://github.com/ilxp/luci-app-ikoolproxy.git package/app/luci-app-ikoolproxy
-echo 'src-git cdnspeedtest https://github.com/immortalwrt-collections/openwrt-cdnspeedtest.git' >>feeds.conf.default
-echo 'src-git cloudflarespeedtest https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest.git' >>feeds.conf.default
 
 # 仿istore
 echo 'src-git istore https://github.com/linkease/istore;main' >> feeds.conf.default
