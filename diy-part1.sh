@@ -103,7 +103,7 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 # 主题
 git clone https://github.com/thinktip/luci-theme-neobird.git feeds/luci/themes/luci-theme-neobird
 git clone https://github.com/Leo-Jo-My/luci-theme-opentomcat.git feeds/luci/themes/luci-theme-opentomcat
-git clone https://github.com/sirpdboy/luci-theme-kucat.git feeds/luci/themes/luci-theme-kucat
+git clone -b main https://github.com/sirpdboy/luci-theme-kucat.git feeds/luci/themes/luci-theme-kucat
 git clone https://github.com/derisamedia/luci-theme-alpha.git feeds/luci/themes/luci-theme-alpha
 
 # echo '### Argon Theme Config ###'
