@@ -45,7 +45,20 @@ merge_package main https://github.com/kenzok8/small-package package/app luci-app
 merge_package main https://github.com/mingxiaoyu/luci-app-cloudflarespeedtest package/app applications/luci-app-cloudflarespeedtest
 merge_package master https://github.com/immortalwrt-collections/openwrt-cdnspeedtest package/app cdnspeedtest
 merge_package v5 https://github.com/sbwml/luci-app-mosdns package/app luci-app-mosdns mosdns v2dat
-merge_package main https://github.com/xuexijiaoben/My_immortalwrt package/app luci-app-gecoosac
+
+# 集客AC
+# merge_package main https://github.com/xuexijiaoben/My_immortalwrt package/app luci-app-gecoosac
+# mkdir -p files/etc/gecoosac
+# wget -P files/etc/gecoosac https://raw.githubusercontent.com/xuexijiaoben/My_immortalwrt/main/ac_linux_arm64
+## wget -P files/etc/gecoosac https://raw.githubusercontent.com/xuexijiaoben/My_immortalwrt/main/ac_linux_amd64
+# chmod -R 755 files
+# sed -i 's|/usr/bin/gecoosac|/etc/gecoosac/ac_linux_arm64|g' package/app/luci-app-gecoosac/root/etc/config/gecoosac
+## sed -i 's|/usr/bin/gecoosac|/etc/gecoosac/ac_linux_arm64|g' package/app/luci-app-gecoosac/root/etc/init.d/gecoosac
+## sed -i 's|/usr/bin/gecoosac|/etc/gecoosac/ac_linux_arm64|g' package/app/luci-app-gecoosac/luasrc/model/cbi/gecoosac.lua
+# chmod 755 package/app/luci-app-gecoosac/root/etc/init.d/gecoosac
+
+merge_package main https://github.com/lwb1978/openwrt-gecoosac package/app luci-app-gecoosac
+merge_package main https://github.com/lwb1978/openwrt-gecoosac package/app gecoosac
 
 # git clone https://github.com/kenzok8/small-package.git kenzok8
 # cp -rf kenzok8/filebrowser package/filebrowser
@@ -91,15 +104,6 @@ echo "src-git ssrplus https://github.com/fw876/helloworld.git;master" >>feeds.co
 #  git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/app/luci-app-vssr
 # kenzok8 inclued lua-maxminddb
 # git clone --depth 1 https://github.com/jerrykuku/lua-maxminddb package/app/lua-maxminddb
-
-mkdir -p files/etc/gecoosac
-wget -P files/etc/gecoosac https://raw.githubusercontent.com/xuexijiaoben/My_immortalwrt/main/ac_linux_arm64
-# wget -P files/etc/gecoosac https://raw.githubusercontent.com/xuexijiaoben/My_immortalwrt/main/ac_linux_amd64
-chmod -R 755 files
-sed -i 's|/usr/bin/gecoosac|/etc/gecoosac/ac_linux_arm64|g' package/app/luci-app-gecoosac/root/etc/config/gecoosac
-# sed -i 's|/usr/bin/gecoosac|/etc/gecoosac/ac_linux_arm64|g' package/app/luci-app-gecoosac/root/etc/init.d/gecoosac
-# sed -i 's|/usr/bin/gecoosac|/etc/gecoosac/ac_linux_arm64|g' package/app/luci-app-gecoosac/luasrc/model/cbi/gecoosac.lua
-chmod 755 package/app/luci-app-gecoosac/root/etc/init.d/gecoosac
 
 ./scripts/feeds update -a
 
